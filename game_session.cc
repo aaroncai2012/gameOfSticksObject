@@ -17,18 +17,6 @@ Session::Session(Configuration& options) :
 }
 
 void Session::PrintSessionStats() {
-  /*
-    if (player_one_ && player_two_) {
-      std::cout << "Game session of type [" << ToString(game_type_) << "] with players:" << std::endl;
-      std::cout << "    " << player_one_ -> name_ << std::endl;
-      player_one_ -> PrintMemory();
-      std::cout << "    " << player_two_ -> name_ << std::endl;
-      player_two_ -> PrintMemory();
-    } else {
-      std::cout << "Game session incomplete." << std::endl;
-    }
-  */
-
   game_setup_.PrintConfiguration();
 
   for (int i = 0; i < players_.size(); ++i) {
