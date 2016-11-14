@@ -3,28 +3,16 @@
 #include <iostream>
 #include <memory>
 
+#include "game_configuration.h"
+#include "player.h"
+#include "utilities.h"
+
 namespace gameofsticks {
 
-Session::Session(GameType type, 
-                 std::vector<std::string> list_of_names,
-                 std::vector<int> valid_moves,
-                 int sticks_number) :
-                    game_type_(type),
-                    valid_moves_(valid_moves),
-                    sticks_number_(sticks_number) {
-  for(int i = 0 ; i < list_of_names.size(); ++i) {
-    players_.push_back(std::unique_ptr<gameofsticks::Player> (new Player(list_of_names[i])));
-  } 
-}
-
-std::string Session::ToString(GameType type) {
-  switch (type) {
-    case GameType::PLAYER_V_PLAYER:
-      return std::string("Player v. Player");
-    case GameType::PLAYER_V_AI:
-      return std::string("Player v. AI");
-    case GameType::AI_V_AI:
-      return std::string("AI v. AI");
+Session::Session(Configuration& options) :
+          game_setup_(options) {
+  for (std::string p : game_setup_.GetPlayerNames()) {
+    players_.push_back(std::unique_ptr<gameofsticks::Player> (new Player(p)));
   }
 }
 
@@ -41,21 +29,11 @@ void Session::PrintSessionStats() {
     }
   */
 
-  std::cout << "Game session of type [" << ToString(game_type_) << "] with players:" << std::endl;
-  for(int i = 0; i < players_.size(); ++i) {
-    std::cout << players_[i] -> name_ << std::endl;
-    players_[i] -> PrintMemory();
+  game_setup_.PrintConfiguration();
+
+  for (int i = 0; i < players_.size(); ++i) {
+    std::cout << players_[i] << std::endl;
   }
-  PrintTestStats();
 }
 
-void Session::PrintTestStats() {
-  std::cout << "Number of sticks: " << sticks_number_ << std::endl;
-  std::cout << "Sticks allowed: ";
-  for(int i = 0; i < valid_moves_.size(); ++i) {
-    std::cout << valid_moves_[i] << ' '; 
-  }
-  std::cout << std::endl;
-}
-
-}
+}  // namespace gameofsticks

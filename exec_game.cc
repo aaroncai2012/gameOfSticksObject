@@ -29,12 +29,8 @@ int main(int argc, char* argv[]) {
 
   gameofsticks::Configuration options(argc, argv);
 
-  std::unique_ptr<gameofsticks::Session> the_game = std::unique_ptr<gameofsticks::Session>(
-            new gameofsticks::Session(
-                    options.GetGameType(),
-                    options.GetPlayerNames(),
-                    options.GetValidMoves(),
-                    options.GetSticksNumber());
+  std::unique_ptr<gameofsticks::Session> the_game = 
+          std::unique_ptr<gameofsticks::Session>(new gameofsticks::Session(options));
 
   the_game -> PrintSessionStats();
   

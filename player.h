@@ -9,7 +9,8 @@ namespace gameofsticks {
 class Player {
   public:
     Player(std::string name);
-    void PrintMemory();
+
+    std::vector<std::vector<int>> GetMemory();
 
     std::string name_;
 
@@ -17,6 +18,6 @@ class Player {
     std::vector<std::vector<int>> memory_;
 };
 
-}
+}  // namespace gameofsticks
 
 #endif  // GAMEOFSTICKS_PLAYER_H_
