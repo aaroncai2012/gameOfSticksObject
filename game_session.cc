@@ -6,14 +6,14 @@
 namespace gameofsticks {
 
 Session::Session(GameType type, 
-                 std::vector<std::string> listOfNames,
-                 std::vector<int> sticksAllowed,
-                 int sticksNumber) :
+                 std::vector<std::string> list_of_names,
+                 std::vector<int> valid_moves,
+                 int sticks_number) :
                     game_type_(type),
-                    sticksAllowed_(sticksAllowed),
-                    sticksNumber_(sticksNumber) {
-  for(int i = 0 ; i < listOfNames.size(); ++i) {
-    players_.push_back(std::unique_ptr<gameofsticks::Player> (new Player(listOfNames[i])));
+                    valid_moves_(valid_moves),
+                    sticks_number_(sticks_number) {
+  for(int i = 0 ; i < list_of_names.size(); ++i) {
+    players_.push_back(std::unique_ptr<gameofsticks::Player> (new Player(list_of_names[i])));
   } 
 }
 
@@ -50,10 +50,10 @@ void Session::PrintSessionStats() {
 }
 
 void Session::PrintTestStats() {
-  std::cout << "Number of sticks: " << sticksNumber_ << std::endl;
+  std::cout << "Number of sticks: " << sticks_number_ << std::endl;
   std::cout << "Sticks allowed: ";
-  for(int i = 0; i < sticksAllowed_.size(); ++i) {
-    std::cout << sticksAllowed_[i] << ' '; 
+  for(int i = 0; i < valid_moves_.size(); ++i) {
+    std::cout << valid_moves_[i] << ' '; 
   }
   std::cout << std::endl;
 }

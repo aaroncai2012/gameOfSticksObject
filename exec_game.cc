@@ -27,18 +27,14 @@ int main(int argc, char* argv[]) {
       }
   */
 
-  std::unique_ptr<gameofsticks::Session> the_game;
-  if (sticks_count && !sticks_allowed.empty()) {
-    the_game = std::unique_ptr<gameofsticks::Session>(
-            new gameofsticks::Session(gameofsticks::GameType::PLAYER_V_PLAYER,
-                                      names_list,
-                                      sticks_allowed,
-                                      sticks_count));
-  
-  } else {
-    the_game = std::unique_ptr<gameofsticks::Session>(
-            new gameofsticks::Session(gameofsticks::GameType::PLAYER_V_PLAYER, names_list));
-  }
+  gameofsticks::Configuration options(argc, argv);
+
+  std::unique_ptr<gameofsticks::Session> the_game = std::unique_ptr<gameofsticks::Session>(
+            new gameofsticks::Session(
+                    options.GetGameType(),
+                    options.GetPlayerNames(),
+                    options.GetValidMoves(),
+                    options.GetSticksNumber());
 
   the_game -> PrintSessionStats();
   

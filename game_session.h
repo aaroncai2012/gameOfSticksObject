@@ -19,9 +19,9 @@ enum GameType {
 class Session {
   public:
     Session(GameType type, 
-            std::vector<std::string> listOfNames,
-            std::vector<int> sticksAllowed = {1, 2, 3},
-            int sticksNumber = 20);
+            std::vector<std::string> list_of_names,
+            std::vector<int> valid_moves,
+            int sticks_number);
  
 
     void PrintSessionStats();
@@ -32,8 +32,8 @@ class Session {
 
     GameType game_type_;
     std::vector<std::unique_ptr<gameofsticks::Player>> players_;
-    int sticksNumber_;
-    std::vector<int> sticksAllowed_;
+    int sticks_number_;
+    std::vector<int> valid_moves_;
 };
 
 }
