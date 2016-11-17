@@ -17,29 +17,27 @@ int main(int argc, char* argv[]) {
     sticksCount = std::atoi(argv[playerCount + 2]);
   }
   std::vector<std::string> listOfNames;
-  std::vector<int> sticksAllowed();
-  for(int i = 2; i < playerCount + 2; ++i) {
+  std::vector<int> sticksAllowed;
+  for (int i = 2; i < playerCount + 2; ++i) {
     listOfNames.emplace_back(argv[i]);
   }
-  for(int i = playerCount+3; i < argc; ++i) {
+  for (int i = playerCount+3; i < argc; ++i) {
     sticksAllowed.emplace_back(std::atoi(argv[i]));
   }
 
   std::unique_ptr<gameofsticks::Session> the_game;
-  if(sticksCount && !sticksAllowed.empty()) {
-    the_game(
-        new gameofsticks::Session(
-                gameofsticks::GameType::PLAYER_V_PLAYER,
-                listOfNames,
-                sticksNumber,
-                sticksAllowed));
+  if (sticksCount && !sticksAllowed.empty()) {
+    the_game = std::unique_ptr<gameofsticks::Session>(
+            new gameofsticks::Session(gameofsticks::GameType::PLAYER_V_PLAYER,
+                                      listOfNames,
+                                      sticksAllowed,
+                                      sticksCount));
+  
+  } else {
+    the_game = std::unique_ptr<gameofsticks::Session>(
+            new gameofsticks::Session(gameofsticks::GameType::PLAYER_V_PLAYER, listOfNames));
   }
-  else {
-    the_game(
-           new gameofsticks::Session(
-                 gameofsticks::GameType::PLAYER_V_PLAYER,
-                 listOfNames));
-  }
+
   the_game -> PrintSessionStats();
   
   return 0;
