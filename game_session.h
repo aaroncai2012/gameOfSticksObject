@@ -4,38 +4,24 @@
 #include <string>
 #include <memory>
 
+#include "game_configuration.h"
 #include "player.h"
 
 namespace gameofsticks {
 
-// different game types that can be played
-enum GameType {
-  PLAYER_V_PLAYER,
-  PLAYER_V_AI,
-  AI_V_AI
-};
-
 // represents a game played between two players
 class Session {
   public:
-    Session(GameType type, 
-            std::vector<std::string> listOfNames,
-            std::vector<int> sticksAllowed = {1, 2, 3},
-            int sticksNumber = 20);
- 
+    Session(Configuration& options);
 
     void PrintSessionStats();
     void PrintTestStats();
 
   private:
-    std::string ToString(GameType type);
-
-    GameType game_type_;
+    Configuration game_setup_;
     std::vector<std::unique_ptr<gameofsticks::Player>> players_;
-    int sticksNumber_;
-    std::vector<int> sticksAllowed_;
 };
 
-}
+}  // namespace gameofsticks
 
 #endif  // GAMEOFSTICKS_GAMESESSION_H_
