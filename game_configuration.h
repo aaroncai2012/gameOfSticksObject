@@ -16,8 +16,9 @@ enum class GameType {
 class Configuration {
   public:
     Configuration(int argc, char* argv[]);
-
     void PrintConfiguration();
+    bool isHelp();
+    
 
     std::vector<std::string>  GetPlayerNames();
     /*
@@ -28,10 +29,12 @@ class Configuration {
 
   private:
     void ConfigureAllDefaults();
+    void dumpOptions(int size, char* inputs[]);
 
     GameType                  game_type_;
     std::vector<std::string>  players_;
     std::vector<int>          valid_moves_;
+    std::vector<std::string>  options_;
     int                       sticks_number_;
 };
 
