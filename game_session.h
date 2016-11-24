@@ -15,7 +15,6 @@ class Session {
     Session(Configuration& options);
 
     void PrintSessionStats();
-    void PrintTestStats();
 
   private:
     Configuration game_setup_;
