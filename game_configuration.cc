@@ -36,15 +36,16 @@ void Configuration::ConfigureAllDefaults() {
 }
 
 void Configuration::ShowHelp() {
-  std::cout << "Usage: ./bin/game.exe [-hgpms]" << std::endl <<
-  std::endl << "            -h               : show help message" <<
-  std::endl << "            -g <AA|AP|PP>    : game mode, can be" <<
-  std::endl << "                               AA = AI v. AI" <<
-  std::endl << "                               AP = AI v. Player" <<
-  std::endl << "                               PP = Player v. Player" <<
-  std::endl << "            -p <name>        : specify player name" <<
+  std::cout <<
+  std::endl << "Usage: ./bin/game.exe [-hgpms]"                                            <<
+  std::endl << "            -h               : show help message"                          <<
+  std::endl << "            -g <AA|AP|PP>    : game mode, can be"                          <<
+  std::endl << "                               AA = AI v. AI"                              <<
+  std::endl << "                               AP = AI v. Player"                          <<
+  std::endl << "                               PP = Player v. Player"                      <<
+  std::endl << "            -p <name>        : specify player name"                        <<
   std::endl << "            -m <valid moves> : # of sticks that can be picked up per move" <<
-  std::endl << "            -s <sticks>      : # of sticks in the game" <<
+  std::endl << "            -s <sticks>      : # of sticks in the game"                    <<
   std::endl;
 
   std::exit(1);
