@@ -25,6 +25,7 @@ class Configuration {
     void ConfigureAllDefaults();
 
     void ShowHelp();
+    void ConfigureFromInputs();
 
     std::vector<std::string>  inputs_;
     GameType                  game_type_;

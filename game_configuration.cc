@@ -15,6 +15,7 @@ Configuration::Configuration(int argc, char* argv[]) {
     }
     inputs_.emplace_back(argv[i]);
   }
+  ConfigureFromInputs();
 }
 
 void Configuration::PrintConfiguration() {
