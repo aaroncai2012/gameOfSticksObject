@@ -19,16 +19,14 @@ class Configuration {
 
     void PrintConfiguration();
 
-    std::vector<std::string>  GetPlayerNames();
-    /*
-    GameType                  GetGameType();
-    std::vector<int>          GetValidMoves();
-    int                       GetSticksNumber();
-    */
+    std::vector<std::string> Players();
 
   private:
     void ConfigureAllDefaults();
 
+    void ShowHelp();
+
+    std::vector<std::string>  inputs_;
     GameType                  game_type_;
     std::vector<std::string>  players_;
     std::vector<int>          valid_moves_;
