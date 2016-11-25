@@ -1,6 +1,7 @@
 #ifndef GAMEOFSTICKS_CONFIGURATION_H_
 #define GAMEOFSTICKS_CONFIGURATION_H_
 
+#include <queue>
 #include <string>
 #include <vector>
 
@@ -19,16 +20,21 @@ class Configuration {
 
     void PrintConfiguration();
 
-    std::vector<std::string>  GetPlayerNames();
-    /*
-    GameType                  GetGameType();
-    std::vector<int>          GetValidMoves();
-    int                       GetSticksNumber();
-    */
+    std::vector<std::string> Players();
 
   private:
     void ConfigureAllDefaults();
 
+    void ConfigureFromInputs();
+    bool ValidParam(const std::string &param);
+    void AddConfigurationToParam(const std::string &param,
+                                 std::queue<std::string> &configurations);
+    void ShowHelp();
+    bool CheckConfiguredCorrectly();
+
+    bool configured_players_       = false;
+    bool configured_valid_moves_   = false;
+    std::queue<std::string>   inputs_;
     GameType                  game_type_;
     std::vector<std::string>  players_;
     std::vector<int>          valid_moves_;

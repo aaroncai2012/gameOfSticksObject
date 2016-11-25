@@ -11,7 +11,7 @@ namespace gameofsticks {
 
 Session::Session(Configuration& options) :
           game_setup_(options) {
-  for (std::string p : game_setup_.GetPlayerNames()) {
+  for (std::string p : game_setup_.Players()) {
     players_.push_back(std::unique_ptr<gameofsticks::Player> (new Player(p)));
   }
 }
