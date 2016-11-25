@@ -8,6 +8,7 @@
 ########
 .idea
 cmake-build-debug
+bin
 CMakeLists.txt
 
 # Compiled source #
