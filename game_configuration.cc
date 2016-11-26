@@ -62,7 +62,7 @@ void Configuration::ConfigureFromInputs() {
 }
 
 bool Configuration::ValidParam(const std::string &param) {
-  return param[0] == '-' ? true : false;
+  return param[0] == '-';
 }
 
 void Configuration::AddConfigurationToParam(const std::string &param,
@@ -127,7 +127,6 @@ void Configuration::AddConfigurationToParam(const std::string &param,
 }
 
 bool Configuration::CheckConfiguredCorrectly() {
-  bool check = true;
   if (configured_players_) {
     if (game_type_ == GameType::PLAYER_V_AI && players_.size() < 1) {
       std::cout << std::endl
@@ -142,7 +141,7 @@ bool Configuration::CheckConfiguredCorrectly() {
       return false;
     }
   }
-  if (configured_valid_moves_ && valid_moves_.size() < 1) {
+  if (configured_valid_moves_ && valid_moves_.empty()) {
     return false;
   }
   return true;
