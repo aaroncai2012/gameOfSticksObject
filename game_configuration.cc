@@ -9,13 +9,12 @@
 namespace gameofsticks {
 
 Configuration::Configuration(int argc, char* argv[]) {
+  ConfigureAllDefaults();
   if (argc == 1) {
-    ConfigureAllDefaults();
     return;
   }
-  else { 
-    dumpOptions(argc, argv);
-  }
+  dumpOptions(argc, argv);
+
 }
 
 void Configuration::dumpOptions(int size, char* inputs[]) {
@@ -26,14 +25,41 @@ void Configuration::dumpOptions(int size, char* inputs[]) {
 
 bool Configuration::isHelp() {
   if(std::find(options_.begin(), options_.end(), "-h") != options_.end()) {
-    std::cout << "Options to customize the game:" << std::endl
-              << "Include -n and a number to set the number of sticks" << std::endl
-              << "Include -p and a name to add a player by that name" << std::endl
-              << "Include -g and pvp, pva, or ava" << std::endl;
-    std::cout << std::endl;
+    printHelp();
     return true;
   }
   return false;
+}
+
+void Configuration::printHelp() {
+  std::cout << "Options to customize the game:" << std::endl
+            << "Include -n and a number to set the number of sticks" << std::endl
+            << "Include -p and a name to add a player by that name" << std::endl
+            << "Include -g and pvp, pva, or ava" << std::endl
+            << "Inlcude -m and numbers to specify valid moves" << std::endl;
+  std::cout << std::endl;
+}
+
+void Configuration::configureOptions() {
+
+  char last = ' ';
+  for (int i = 0; i < options_.size(); ++i) {
+    if (options_[i][0] == '-') {
+      last = options_[i][1];
+    }
+    else {
+      switch(last) {
+        std::string::size_type sz;
+        case 'n': sticks_number_ = std::stoi(options_[i], &sz);
+        case 'p': players_.emplace_back(options_[i]);
+      //case 'g': game_type_ = options_[i]; still have to overload game_type_ =
+        case 'm': valid_moves_.emplace_back(std::stoi(options_[i], &sz));
+        default: 
+          std::cout << "Bad Input" << std::endl;
+          return;
+      } 
+    }
+  }
 }
 
 void Configuration::PrintConfiguration() {

@@ -30,6 +30,9 @@ class Configuration {
   private:
     void ConfigureAllDefaults();
     void dumpOptions(int size, char* inputs[]);
+    void printHelp();
+    void configureOptions();
+    bool checkOptions();
 
     GameType                  game_type_;
     std::vector<std::string>  players_;
