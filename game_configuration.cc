@@ -68,19 +68,21 @@ bool Configuration::ValidParam(const std::string &param) {
 void Configuration::AddConfigurationToParam(const std::string &param,
                                             std::queue<std::string> &configurations) {
   if (param == "-g") {
-    if (configurations.front() == "AA") {
-      game_type_ = GameType::AI_V_AI;
-    } else if (configurations.front() == "AP") {
-      game_type_ = GameType::PLAYER_V_AI;
-    } else if (configurations.front() == "PP") {
-      game_type_ = GameType::PLAYER_V_PLAYER;
-    } else {
-      std::cout << std::endl
-                << "Error: invalid game type specified with -g"
-                << std::endl;
-      ShowHelp();
+    if (!configurations.empty()) {
+      if (configurations.front() == "AA") {
+        game_type_ = GameType::AI_V_AI;
+      } else if (configurations.front() == "AP") {
+        game_type_ = GameType::PLAYER_V_AI;
+      } else if (configurations.front() == "PP") {
+        game_type_ = GameType::PLAYER_V_PLAYER;
+      } else {
+        std::cout << std::endl
+                  << "Error: invalid game type specified with -g"
+                  << std::endl;
+        ShowHelp();
+      }
+      configurations.pop();
     }
-    configurations.pop();
     if (!configurations.empty()) {  // we only allow one game type
       std::cout << std::endl
                 << "Error: exactly 1 game type must be specified with -g"
@@ -109,9 +111,11 @@ void Configuration::AddConfigurationToParam(const std::string &param,
     }
 
   } else if (param == "-s") {
-    sticks_number_ = std::stoi(configurations.front());
-    configurations.pop();
-    if (!configurations.empty()) {  // we only allow one game type
+    if (!configurations.empty()) {
+      sticks_number_ = std::stoi(configurations.front());
+      configurations.pop();
+    }
+    if (!configurations.empty()) {  // we only allow one value for number of sticks in game
       std::cout << std::endl
                 << "Error: exactly 1 sticks number must be specified with -s"
                 << std::endl;
