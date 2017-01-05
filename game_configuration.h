@@ -33,6 +33,7 @@ class Configuration {
     void printHelp();
     void configureOptions();
     bool checkOptions();
+    void setGameType(std::string in);
 
     GameType                  game_type_;
     std::vector<std::string>  players_;

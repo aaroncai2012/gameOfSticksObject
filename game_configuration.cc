@@ -14,6 +14,7 @@ Configuration::Configuration(int argc, char* argv[]) {
     return;
   }
   dumpOptions(argc, argv);
+  configureOptions();
 
 }
 
@@ -43,6 +44,8 @@ void Configuration::printHelp() {
 void Configuration::configureOptions() {
 
   char last = ' ';
+  bool hitP = false;
+  bool hitM = false;
   for (int i = 0; i < options_.size(); ++i) {
     if (options_[i][0] == '-') {
       last = options_[i][1];
@@ -50,10 +53,26 @@ void Configuration::configureOptions() {
     else {
       switch(last) {
         std::string::size_type sz;
-        case 'n': sticks_number_ = std::stoi(options_[i], &sz);
-        case 'p': players_.emplace_back(options_[i]);
-      //case 'g': game_type_ = options_[i]; still have to overload game_type_ =
-        case 'm': valid_moves_.emplace_back(std::stoi(options_[i], &sz));
+        case 'n': 
+          sticks_number_ = std::stoi(options_[i], &sz);
+          break;
+        case 'p': 
+          if (!hitP) {
+            players_.clear();
+            hitP = true;
+          }
+          players_.emplace_back(options_[i]);
+          break;
+        case 'g': 
+          setGameType(options_[i]);
+          break;
+        case 'm': 
+          if (!hitM) {
+            valid_moves_.clear();
+            hitM = true;
+          }
+          valid_moves_.emplace_back(std::stoi(options_[i], &sz));
+          break;
         default: 
           std::cout << "Bad Input" << std::endl;
           return;
@@ -80,4 +99,19 @@ void Configuration::ConfigureAllDefaults() {
   sticks_number_ = 20;
 }
 
-}  // namespace gameofsticks
+void Configuration::setGameType(std::string in) {
+  if (in == "pvp") {
+      game_type_ = GameType::PLAYER_V_PLAYER;
+  }
+  else if (in == "pva") {
+      game_type_ = GameType::PLAYER_V_AI;
+  }
+  else if (in == "ava") {
+      game_type_ = GameType::AI_V_AI;
+  }
+  else {
+      std::cout << "Bad game type input" << std::endl;
+  }
+}
+
+} // namespace gameofsticks
